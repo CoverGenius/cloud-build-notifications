@@ -1,1 +1,1 @@
-gcloud functions deploy cloud-build-notifications --entry-point receivedMessage --runtime nodejs8 --trigger-topic cloud-builds --project $PROJECT_ID --env-vars-file .env.yaml
+gcloud functions deploy cloud-build-notifications --entry-point receivedMessage --runtime nodejs12 --memory=128MB --trigger-topic cloud-builds --project $GOOGLE_PROJECT_ID --env-vars-file .env.yaml
