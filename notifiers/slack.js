@@ -44,6 +44,26 @@ module.exports = async (build) => {
   const commitSha = build.substitutions.SHORT_SHA;
   const repoName = build.substitutions.REPO_NAME;
 
+  var contextBlocks = [
+    {
+      type: 'mrkdwn',
+      text: `*Branch:* ${branchName}`
+    },
+    {
+      type: 'mrkdwn',
+      text: `*Commit:* ${commitSha}`
+    }
+  ];
+
+  if (build.status == 'SUCCESS') {
+    if (build.artifacts && build.artifacts.images) {
+      contextBlocks.push({
+        type: 'mrkdwn',
+        text: `*Container:* ${build.artifacts.images.join(', ')}`
+      })
+    }
+  }
+
   const msg = {
     text: `${statusMessage} for *${build.projectId}*.`,
     blocks: [
@@ -67,16 +87,7 @@ module.exports = async (build) => {
           },
           {
             type: 'context',
-            elements: [
-              {
-                type: 'mrkdwn',
-                text: `*Branch:* <${branchName}>`
-              },
-              {
-                type: 'mrkdwn',
-                text: `*Commit:* <${commitSha}>`
-              }
-            ]
+            elements: contextBlocks
           }
         ],
         color: statusCodes[build.status].color
