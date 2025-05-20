@@ -1,3 +1,5 @@
+> :warning: **DEPRECATED - DO NOT USE** This fork is deprecated an should not be used
+
 # cloud-build-notifications
 Google Cloud Function that allows you to easily receive Cloud Build status updates
 
